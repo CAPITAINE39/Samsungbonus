@@ -2,17 +2,18 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Partage pour recevoir</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samsung Bonus Méga</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       text-align: center;
-      padding: 50px;
+      padding: 40px 20px;
       background: linear-gradient(to right, #ffecd2, #fcb69f);
       color: #2c3e50;
     }
     h1 {
-      font-size: 2.8em;
+      font-size: 2.5em;
       color: #d35400;
       margin-bottom: 10px;
     }
@@ -20,7 +21,7 @@
       font-size: 1.2em;
       margin: 12px;
     }
-    .share-btn {
+    .share-btn, button {
       display: inline-block;
       margin: 20px auto;
       padding: 14px 28px;
@@ -31,8 +32,10 @@
       border-radius: 50px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
       transition: all 0.3s ease-in-out;
+      border: none;
+      cursor: pointer;
     }
-    .share-btn:hover {
+    .share-btn:hover, button:hover {
       background-color: #c0392b;
       transform: scale(1.05);
     }
@@ -58,12 +61,10 @@
       background-color: #ffffffcc;
       padding: 15px;
       border-radius: 15px;
-      margin: 10px 0;
+      margin: 10px auto;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      text-align: left;
       max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      text-align: left;
     }
     #auto-msg {
       font-size: 1.2em;
@@ -75,6 +76,14 @@
       border-radius: 10px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       display: inline-block;
+    }
+    input[type="tel"] {
+      padding: 12px;
+      margin-top: 15px;
+      width: 250px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
     }
   </style>
 </head>
@@ -90,7 +99,7 @@
     <source src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3" type="audio/mp3">
   </audio>
 
-  <h1>Débloque tes Mégas !</h1>
+  <h1>Débloque tes Mégas avec Samsung Bonus</h1>
   <p>Partage à <strong>15 amis</strong> et <strong>5 groupes</strong> pour débloquer tes Mégas.</p>
   <p>Tu les recevras dans <strong>quelques minutes</strong>.</p>
   <p><strong>100 Mo par ami invité</strong></p>
@@ -99,6 +108,12 @@
      onclick="incrementerCompteur();">Partager sur WhatsApp</a>
 
   <div id="compteur">Tu as partagé à 0 amis. Encore 15 !</div>
+
+  <form id="form-telephone">
+    <p><label for="telephone">Entrez votre numéro pour recevoir vos Mégas :</label></p>
+    <input type="tel" id="telephone" name="telephone" placeholder="ex: 0991234567" required>
+  </form>
+  <button onclick="playSuccess()">J'ai partagé</button>
 
   <h2>Cadeaux Bonus</h2>
   <ul class="gifts">
@@ -123,13 +138,18 @@
       partages++;
       let restant = 15 - partages;
       if (restant > 0) {
-        document.getElementById("compteur").innerText = 
+        document.getElementById("compteur").innerText =
           `Tu as partagé à ${partages} amis. Encore ${restant} pour débloquer tes Mégas !`;
       } else {
-        document.getElementById("compteur").innerText = 
+        document.getElementById("compteur").innerText =
           `Bravo ! Tu as débloqué tes Mégas !`;
         document.getElementById("success-sound").play();
       }
+    }
+
+    function playSuccess() {
+      document.getElementById("success-sound").play();
+      alert("Merci pour ton partage ! Tu recevras tes Méga bientôt.");
     }
 
     const messages = [
