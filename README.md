@@ -65,9 +65,30 @@
       margin-left: auto;
       margin-right: auto;
     }
+    #auto-msg {
+      font-size: 1.2em;
+      margin-top: 25px;
+      font-weight: bold;
+      color: #2c3e50;
+      background: #fff8;
+      padding: 12px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      display: inline-block;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Musique de fond -->
+  <audio id="bg-music" autoplay loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- Son de réussite -->
+  <audio id="success-sound">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3" type="audio/mp3">
+  </audio>
 
   <h1>Débloque tes Mégas !</h1>
   <p>Partage à <strong>15 amis</strong> et <strong>5 groupes</strong> pour débloquer tes Mégas.</p>
@@ -91,7 +112,10 @@
   <div class="testimonial"><strong>Yannick T.</strong> : Je croyais que c’était faux, mais j’ai vraiment gagné un bonus. Bravo !</div>
   <div class="testimonial"><strong>Aline M.</strong> : Continuez comme ça ! Grâce à vous j’ai eu mes Mégas, c’est trop cool !</div>
 
-  <p>Après avoir partagé, ferme la page. Tes Mégas arrivent bientôt !</p>
+  <h2>Témoignages en direct</h2>
+  <div id="auto-msg"></div>
+
+  <p style="margin-top: 30px;">Après avoir partagé, ferme la page. Tes Mégas arrivent bientôt !</p>
 
   <script>
     let partages = 0;
@@ -104,8 +128,26 @@
       } else {
         document.getElementById("compteur").innerText = 
           `Bravo ! Tu as débloqué tes Mégas !`;
+        document.getElementById("success-sound").play();
       }
     }
+
+    const messages = [
+      "À chaque fois je réussis mes Méga grâce à ce site.",
+      "Encore une fois, j’ai reçu mes Mo, c’est incroyable !",
+      "Merci à ce site, je ne reste jamais sans connexion.",
+      "Ce site fonctionne vraiment, je le recommande à tous.",
+      "J’ai eu mes Méga comme promis, trop fort !",
+      "Franchement, ça marche à chaque fois ! Merci !"
+    ];
+    let index = 0;
+    function afficherMessage() {
+      const el = document.getElementById("auto-msg");
+      el.textContent = messages[index];
+      index = (index + 1) % messages.length;
+    }
+    setInterval(afficherMessage, 4000);
+    afficherMessage();
   </script>
 
 </body>
